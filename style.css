@@ -10,24 +10,27 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column; /* This ensures everything aligns vertically */
+    flex-direction: column; /* Ensures everything aligns vertically */
 }
 
 .container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap; /* Ensures items wrap on smaller screens */
     width: 90%;
     max-width: 1200px;
-    margin-bottom: 20px; /* Added margin-bottom so the footer doesn't stick to the sections */
+    margin-bottom: 20px;
+    overflow-x: auto; /* Enables horizontal scrolling */
 }
 
 .section {
     flex: 1;
-    margin: 0 15px;
+    margin: 15px; /* Balanced margins */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 h2 {
@@ -91,10 +94,11 @@ footer p.credit {
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stacks the sections vertically on small screens */
+        flex-direction: column; /* Stacks sections vertically on small screens */
+        overflow-x: visible; /* Avoid unnecessary horizontal scrolling */
     }
 
     .section {
-        margin-bottom: 20px;
+        margin: 10px 0; /* Add space between stacked sections */
     }
 }
