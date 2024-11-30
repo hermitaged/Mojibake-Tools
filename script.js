@@ -40,15 +40,8 @@ function simulateMojibake(katakanaText) {
 
     for (let i = 0; i < utf8Bytes.length; i++) {
         const byte = utf8Bytes[i];
-        // Misinterpret bytes to simulate mojibake
-        if (byte >= 0x20 && byte <= 0x7E) {
-            // Printable ASCII range remains as is
-            mojibakeText += String.fromCharCode(byte);
-        } else {
-            // Non-ASCII characters misinterpreted
-            // Simulate mojibake by adding an offset for visible characters
-            mojibakeText += String.fromCharCode(byte + 0x2500); // Add an offset for gibberish-like characters
-        }
+        // Interpret the UTF-8 byte as ISO-8859-1 or Windows-1252
+        mojibakeText += String.fromCharCode(byte);
     }
 
     return mojibakeText;
