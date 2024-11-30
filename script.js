@@ -1,21 +1,20 @@
 document.getElementById("convertButton").addEventListener("click", () => {
     const inputText = document.getElementById("inputText").value;
-    const mojibakeResult = toMojibake(inputText);
+    const mojibakeResult = toMojibake(inputText, "windows-1252"); // Change encoding as needed
     document.getElementById("outputText").value = mojibakeResult;
 });
 
-function toMojibake(inputText) {
+function toMojibake(inputText, encoding = "iso-8859-1") {
     // Step 1: Convert Latin text to Katakana
     const katakanaText = latinToKatakana(inputText);
 
-    // Step 2: Simulate Mojibake by misinterpreting Katakana as a different encoding
-    const mojibakeText = simulateMojibake(katakanaText);
+    // Step 2: Simulate Mojibake by misinterpreting Katakana with the specified encoding
+    const mojibakeText = simulateMojibake(katakanaText, encoding);
 
     return mojibakeText;
 }
 
 function latinToKatakana(text) {
-    // Define a simple mapping from Latin letters to Katakana
     const latinToKana = {
         A: "ア", B: "ビ", C: "シ", D: "デ", E: "エ",
         F: "フ", G: "ギ", H: "ヒ", I: "イ", J: "ジ",
@@ -30,20 +29,22 @@ function latinToKatakana(text) {
         y: "イ", z: "ズ", " ": "　", // Full-width space
     };
 
-    // Convert Latin to Katakana by replacing each character with its equivalent
     return text.split("").map(char => latinToKana[char] || char).join("");
 }
 
-function simulateMojibake(katakanaText) {
-    // Step 1: Encode Katakana text as UTF-8
+function simulateMojibake(katakanaText, encoding) {
     const utf8Encoder = new TextEncoder();
     const utf8Bytes = utf8Encoder.encode(katakanaText);
 
-    // Step 2: Simulate Mojibake by misinterpreting UTF-8 bytes as ISO-8859-1
     let mojibakeText = "";
-    for (let i = 0; i < utf8Bytes.length; i++) {
-        // Convert byte to a character in the ISO-8859-1 range
-        mojibakeText += String.fromCharCode(utf8Bytes[i]);
+
+    if (encoding === "iso-8859-1" || encoding === "windows-1252") {
+        // Simulate Mojibake for ISO-8859-1 or Windows-1252
+        for (let i = 0; i < utf8Bytes.length; i++) {
+            mojibakeText += String.fromCharCode(utf8Bytes[i]);
+        }
+    } else {
+        console.warn(`Encoding "${encoding}" is not supported.`);
     }
 
     return mojibakeText;
