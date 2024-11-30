@@ -1,57 +1,49 @@
+/* Add a comprehensive font that supports a wide range of Unicode characters */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f4;
 }
 
 .container {
-    width: 400px;
+    width: 80%;
+    margin: 0 auto;
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #444;
 }
 
 textarea {
     width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
+    height: 200px;
     padding: 10px;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
     resize: none;
 }
 
-textarea:focus {
-    border-color: #007BFF;
-    outline: none;
-}
-
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
