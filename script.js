@@ -1,17 +1,13 @@
 document.getElementById("convertButton").addEventListener("click", () => {
     const inputText = document.getElementById("inputText").value;
-    const mojibakeResult = toMojibake(inputText);
+    const mojibakeResult = toJapanese(inputText);
     document.getElementById("outputText").value = mojibakeResult;
 });
 
-function toMojibake(inputText) {
+function toJapanese(inputText) {
     // Step 1: Convert Latin text to Katakana, Hiragana, and Kanji
-    const katakanaText = latinToJapanese(inputText);
-
-    // Step 2: Simulate Mojibake (misinterpretation of UTF-8 as ISO-8859-1 or Windows-1252)
-    const mojibakeText = simulateMojibake(katakanaText);
-
-    return mojibakeText;
+    const japaneseText = latinToJapanese(inputText);
+    return japaneseText;
 }
 
 function latinToJapanese(text) {
@@ -38,25 +34,4 @@ function latinToJapanese(text) {
             return char; // Return as is if no mapping is found (e.g., special characters)
         }
     }).join("");
-}
-
-function simulateMojibake(katakanaText) {
-    const utf8Encoder = new TextEncoder();
-    const utf8Bytes = utf8Encoder.encode(katakanaText);
-
-    let mojibakeText = "";
-
-    for (let i = 0; i < utf8Bytes.length; i++) {
-        const byte = utf8Bytes[i];
-        // Ensure bytes are misinterpreted correctly as ISO-8859-1 or Windows-1252
-        if (byte >= 0x20 && byte <= 0x7E) {
-            // Printable ASCII range remains as is
-            mojibakeText += String.fromCharCode(byte);
-        } else {
-            // Non-ASCII range: Convert to visible Mojibake-like characters
-            mojibakeText += String.fromCharCode(byte + 0x2500); // Offset for visible chars
-        }
-    }
-
-    return mojibakeText;
 }
