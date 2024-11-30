@@ -1,15 +1,15 @@
 document.getElementById("convertButton").addEventListener("click", () => {
     const inputText = document.getElementById("inputText").value;
-    const mojibakeResult = toMojibake(inputText, "windows-1252"); // Change encoding as needed
+    const mojibakeResult = toMojibake(inputText);
     document.getElementById("outputText").value = mojibakeResult;
 });
 
-function toMojibake(inputText, encoding = "iso-8859-1") {
+function toMojibake(inputText) {
     // Step 1: Convert Latin text to Katakana
     const katakanaText = latinToKatakana(inputText);
 
-    // Step 2: Simulate Mojibake by misinterpreting Katakana with the specified encoding
-    const mojibakeText = simulateMojibake(katakanaText, encoding);
+    // Step 2: Simulate Mojibake (misinterpretation of UTF-8 as ISO-8859-1 or Windows-1252)
+    const mojibakeText = simulateMojibake(katakanaText);
 
     return mojibakeText;
 }
@@ -32,19 +32,22 @@ function latinToKatakana(text) {
     return text.split("").map(char => latinToKana[char] || char).join("");
 }
 
-function simulateMojibake(katakanaText, encoding) {
+function simulateMojibake(katakanaText) {
     const utf8Encoder = new TextEncoder();
     const utf8Bytes = utf8Encoder.encode(katakanaText);
 
     let mojibakeText = "";
 
-    if (encoding === "iso-8859-1" || encoding === "windows-1252") {
-        // Simulate Mojibake for ISO-8859-1 or Windows-1252
-        for (let i = 0; i < utf8Bytes.length; i++) {
-            mojibakeText += String.fromCharCode(utf8Bytes[i]);
+    for (let i = 0; i < utf8Bytes.length; i++) {
+        const byte = utf8Bytes[i];
+        // Ensure bytes are misinterpreted correctly as ISO-8859-1 or Windows-1252
+        if (byte >= 0x20 && byte <= 0x7E) {
+            // Printable ASCII range remains as is
+            mojibakeText += String.fromCharCode(byte);
+        } else {
+            // Non-ASCII range: Convert to visible Mojibake-like characters
+            mojibakeText += String.fromCharCode(byte + 0x2500); // Offset for visible chars
         }
-    } else {
-        console.warn(`Encoding "${encoding}" is not supported.`);
     }
 
     return mojibakeText;
