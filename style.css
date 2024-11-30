@@ -1,49 +1,55 @@
-/* Add a comprehensive font that supports a wide range of Unicode characters */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-
-body {
-    font-family: "Noto Sans", sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+/* Basic Reset */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
+/* Container */
 .container {
-    width: 80%;
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
+    gap: 20px;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
+/* Column Styles */
+.column {
+    width: 48%; /* Each column will take up 48% of the container width */
+    display: flex;
+    flex-direction: column;
 }
 
+/* Textarea Styles */
 textarea {
     width: 100%;
-    height: 200px;
+    height: 150px;
     padding: 10px;
-    font-family: "Noto Sans", sans-serif;
+    margin-bottom: 10px;
     font-size: 16px;
-    border-radius: 5px;
     border: 1px solid #ccc;
-    resize: none;
+    border-radius: 5px;
+    resize: vertical;
 }
 
+/* Button Styles */
 button {
-    display: block;
-    margin: 20px auto;
     padding: 10px 20px;
-    font-size: 18px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
+}
+
+/* Headings */
+h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
 }
