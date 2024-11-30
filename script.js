@@ -10,9 +10,12 @@ function toMojibake(inputText) {
         const utf8Encoder = new TextEncoder();
         const utf8Bytes = utf8Encoder.encode(inputText);
 
-        // Misinterpret UTF-8 bytes as Shift-JIS
-        const shiftJISDecoder = new TextDecoder("shift_jis");
-        return shiftJISDecoder.decode(utf8Bytes);
+        // Simulate decoding bytes as ISO 8859-1 (Latin-1)
+        const mojibakeResult = utf8Bytes
+            .map(byte => String.fromCharCode(byte)) // Convert bytes to characters directly
+            .join(''); // Join characters into a string
+
+        return mojibakeResult;
     } catch (error) {
         // Handle encoding errors
         console.error("Error during Mojibake conversion:", error);
