@@ -1,4 +1,4 @@
-/* Add a comprehensive font that supports a wide range of Unicode characters */
+/* Importing a font that supports a wide range of Unicode characters */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
 body {
@@ -9,28 +9,30 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    flex-direction: column; /* Ensures everything aligns vertically */
+    min-height: 100vh; /* Ensures full height without viewport issues */
+    flex-direction: column;
+    overflow-y: auto; /* Enables vertical scrolling */
 }
 
 .container {
     display: flex;
+    flex-wrap: wrap; /* Allows sections to wrap on smaller screens */
     justify-content: space-between;
-    flex-wrap: wrap; /* Ensures items wrap on smaller screens */
     width: 90%;
     max-width: 1200px;
-    margin-bottom: 20px;
-    overflow-x: auto; /* Enables horizontal scrolling */
+    margin-bottom: 20px; /* Spacing from the footer */
 }
 
 .section {
     flex: 1;
-    margin: 15px; /* Balanced margins */
+    margin: 15px; /* Space around sections */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Include padding and border in width */
+    box-sizing: border-box;
+    min-width: 300px; /* Ensure sections don’t shrink too much */
+    max-width: 100%; /* Avoid exceeding container width */
 }
 
 h2 {
@@ -69,12 +71,12 @@ textarea[readonly] {
     background-color: #f9f9f9;
 }
 
-/* Footer Container Styling */
+/* Footer Section Styling */
 footer {
     text-align: center;
-    width: 90%; /* Match the width of the container */
-    max-width: 1200px; /* Match the maximum width of the container */
-    margin: 20px auto; /* Centers the footer and adds some space above it */
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
     padding: 10px;
 }
 
@@ -95,10 +97,11 @@ footer p.credit {
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column; /* Stacks sections vertically on small screens */
-        overflow-x: visible; /* Avoid unnecessary horizontal scrolling */
+        align-items: center; /* Center the sections */
     }
 
     .section {
-        margin: 10px 0; /* Add space between stacked sections */
+        margin: 10px 0; /* Add spacing between sections */
+        width: 100%; /* Use full width for smaller devices */
     }
 }
