@@ -6,14 +6,14 @@ document.getElementById("convertButton").addEventListener("click", () => {
 
 function toMojibake(inputText) {
     try {
-        // Step 1: Translate Latin characters to Japanese using a basic mapping
+        // Step 1: Translate Latin characters to Japanese using basic mapping
         const japaneseTranslation = latinToJapanese(inputText);
 
         // Step 2: Encode Japanese characters into UTF-8 bytes
         const utf8Encoder = new TextEncoder();
         const utf8Bytes = utf8Encoder.encode(japaneseTranslation);
 
-        // Step 3: Force misinterpretation of UTF-8 bytes as ISO-8859-1
+        // Step 3: Misinterpret UTF-8 bytes as if they were ISO-8859-1
         let mojibakeText = "";
         for (let i = 0; i < utf8Bytes.length; i++) {
             mojibakeText += String.fromCharCode(utf8Bytes[i]);
@@ -26,7 +26,7 @@ function toMojibake(inputText) {
     }
 }
 
-// Simple Latin-to-Japanese translation mapping
+// Simple Latin-to-Japanese translation mapping for example (expand as needed)
 function latinToJapanese(text) {
     const mapping = {
         A: "ア", B: "ビ", C: "シ", D: "デ", E: "エ",
