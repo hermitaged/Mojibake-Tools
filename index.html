@@ -4,51 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mojibake Converter</title>
-    <style>
-        /* Font-family to support Japanese characters */
-        body {
-            font-family: 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
-            font-size: 18px;
-            line-height: 1.5;
-            margin: 20px;
-            padding: 10px;
-        }
-
-        #outputText {
-            width: 100%;
-            height: 100px;
-            margin-top: 10px;
-            font-family: 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
-            font-size: 20px;
-            color: #333;
-            white-space: pre-wrap; /* Ensures that line breaks and spaces are respected */
-        }
-
-        /* Style for the input and button */
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-        }
-
-        button {
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Mojibake Converter</h1>
-    <p>Enter Latin text to simulate Mojibake (misinterpretation) as Japanese characters:</p>
-    
-    <!-- Input field for Latin text -->
-    <input type="text" id="inputText" placeholder="Enter Latin text here" />
-    
-    <!-- Button to trigger the conversion -->
-    <button id="convertButton">Convert to Mojibake</button>
-    
-    <h3>Output (Mojibake):</h3>
-    <!-- Output field for Mojibake result -->
-    <textarea id="outputText" readonly></textarea>
+
+    <div class="container">
+        <h1>Mojibake Converter</h1>
+        
+        <textarea id="inputText" placeholder="Enter text to convert"></textarea>
+        
+        <button id="convertButton">Convert</button>
+        
+        <textarea id="outputText" placeholder="Converted text will appear here" readonly></textarea>
+    </div>
 
     <script src="script.js"></script>
 </body>
