@@ -1,80 +1,62 @@
-// Convert Latin to Japanese characters (mix of Katakana, Hiragana, and basic Kanji)
-function latinToJapanese(text) {
-    const latinToJapaneseMap = {
-        a: ["ア", "あ", "安"],
-        b: ["ブ", "ば", "部"],
-        c: ["ク", "か", "区"],
-        d: ["ド", "だ", "土"],
-        e: ["エ", "え", "江"],
-        f: ["フ", "ふ", "府"],
-        g: ["グ", "が", "具"],
-        h: ["ホ", "は", "保"],
-        i: ["イ", "い", "意"],
-        j: ["ジ", "じ", "寺"],
-        k: ["カ", "か", "加"],
-        l: ["ル", "ら", "留"],
-        m: ["ム", "ま", "武"],
-        n: ["ン", "な", "南"],
-        o: ["オ", "お", "王"],
-        p: ["プ", "ぱ", "部"],
-        q: ["ク", "く", "句"],
-        r: ["ル", "ら", "流"],
-        s: ["ス", "さ", "寿"],
-        t: ["ト", "た", "塔"],
-        u: ["ウ", "う", "宇"],
-        v: ["ヴ", "ゔ", "部"],
-        w: ["ウ", "わ", "和"],
-        x: ["クス", "くす", "空"],
-        y: ["ユ", "ゆ", "遊"],
-        z: ["ズ", "ざ", "図"]
-    };
+document.getElementById("convertButton").addEventListener("click", () => {
+    const inputText = document.getElementById("inputText").value;
+    const mojibakeResult = toMojibake(inputText);
+    document.getElementById("outputText").value = mojibakeResult;
+});
 
-    let japaneseText = "";
-    for (let char of text) {
-        const options = latinToJapaneseMap[char.toLowerCase()];
-        if (options) {
-            japaneseText += options[Math.floor(Math.random() * options.length)];
-        } else {
-            japaneseText += char; // Preserve unmapped characters
-        }
-    }
-    return japaneseText;
+function toMojibake(inputText) {
+    // Step 1: Convert Latin text to Katakana, Hiragana, and Kanji
+    const katakanaText = latinToJapanese(inputText);
+
+    // Step 2: Simulate Mojibake (misinterpretation of UTF-8 as ISO-8859-1 or Windows-1252)
+    const mojibakeText = simulateMojibake(katakanaText);
+
+    return mojibakeText;
 }
 
-// Simulate Mojibake effect
-function simulateMojibake(japaneseText) {
+function latinToJapanese(text) {
+    const latinToKanaKanji = {
+        A: ["ア", "あ", "安"], B: ["ビ", "び", "部"], C: ["シ", "し", "地"], D: ["デ", "で", "出"], E: ["エ", "え", "絵"],
+        F: ["フ", "ふ", "不"], G: ["ギ", "ぎ", "技"], H: ["ヒ", "ひ", "火"], I: ["イ", "い", "医"], J: ["ジ", "じ", "自"],
+        K: ["ケ", "け", "計"], L: ["ル", "る", "流"], M: ["ム", "む", "無"], N: ["ン", "ん", "南"], O: ["オ", "お", "王"],
+        P: ["プ", "ぷ", "普"], Q: ["ク", "く", "区"], R: ["ル", "る", "理"], S: ["ス", "す", "水"], T: ["ト", "と", "戸"],
+        U: ["ウ", "う", "宇"], V: ["ヴ", "ゔ", "部"], W: ["ワ", "わ", "和"], X: ["クス", "くす", "空"], Y: ["イ", "い", "意"],
+        Z: ["ズ", "ず", "図"], a: ["ア", "あ", "安"], b: ["ビ", "び", "部"], c: ["シ", "し", "地"], d: ["デ", "で", "出"],
+        e: ["エ", "え", "絵"], f: ["フ", "ふ", "不"], g: ["ギ", "ぎ", "技"], h: ["ヒ", "ひ", "火"], i: ["イ", "い", "医"],
+        j: ["ジ", "じ", "自"], k: ["ケ", "け", "計"], l: ["ル", "る", "流"], m: ["ム", "む", "無"], n: ["ン", "ん", "南"],
+        o: ["オ", "お", "王"], p: ["プ", "ぷ", "普"], q: ["ク", "く", "区"], r: ["ル", "る", "理"], s: ["ス", "す", "水"],
+        t: ["ト", "と", "戸"], u: ["ウ", "う", "宇"], v: ["ヴ", "ゔ", "部"], w: ["ワ", "わ", "和"], x: ["クス", "くす", "空"],
+        y: ["イ", "い", "意"], z: ["ズ", "ず", "図"], " ": "　", // Full-width space
+    };
+
+    return text.split("").map(char => {
+        const options = latinToKanaKanji[char];
+        if (options) {
+            // Randomly pick one option (Katakana, Hiragana, or Kanji)
+            return options[Math.floor(Math.random() * options.length)];
+        } else {
+            return char; // Return as is if no mapping is found (e.g., special characters)
+        }
+    }).join("");
+}
+
+function simulateMojibake(katakanaText) {
     const utf8Encoder = new TextEncoder();
-    const utf8Bytes = utf8Encoder.encode(japaneseText);
+    const utf8Bytes = utf8Encoder.encode(katakanaText);
 
     let mojibakeText = "";
 
     for (let i = 0; i < utf8Bytes.length; i++) {
         const byte = utf8Bytes[i];
-
-        // Map byte to ISO-8859-1 printable range (0xA1 to 0xFF)
-        const mappedByte = 0xA0 + (byte % (0xFF - 0xA0 + 1)); 
-        mojibakeText += String.fromCharCode(mappedByte);
+        // Ensure bytes are misinterpreted correctly as ISO-8859-1 or Windows-1252
+        if (byte >= 0x20 && byte <= 0x7E) {
+            // Printable ASCII range remains as is
+            mojibakeText += String.fromCharCode(byte);
+        } else {
+            // Non-ASCII range: Convert to visible Mojibake-like characters
+            mojibakeText += String.fromCharCode(byte + 0x2500); // Offset for visible chars
+        }
     }
 
     return mojibakeText;
 }
-
-// Main conversion function
-function convertTextToMojibake(inputText) {
-    // Step 1: Convert Latin to Japanese characters (expanded set)
-    const japaneseText = latinToJapanese(inputText);
-
-    // Step 2: Simulate Mojibake
-    const mojibakeText = simulateMojibake(japaneseText);
-
-    return mojibakeText;
-}
-
-// Event listener for the conversion
-document.getElementById("convertButton").addEventListener("click", function () {
-    const inputText = document.getElementById("inputText").value;
-    const mojibakeText = convertTextToMojibake(inputText);
-
-    // Display the Mojibake output
-    document.getElementById("outputText").textContent = mojibakeText;
-});
