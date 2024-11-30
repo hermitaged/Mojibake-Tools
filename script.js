@@ -50,5 +50,8 @@ function simulateMojibake(kanaText) {
         mojibakeText += String.fromCharCode(byte);
     }
 
+    // Step 3: Remove invisible characters like zero-width space (U+200B) and other non-printing characters
+    mojibakeText = mojibakeText.replace(/[\u200B\u200C\u200D\u200E\u200F\u202A-\u202E\u2060\uFEFF]/g, "");
+
     return mojibakeText;
 }
