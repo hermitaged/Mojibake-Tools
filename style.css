@@ -71,23 +71,19 @@ footer {
     text-align: center;
     width: 100%;
     padding: 10px;
-    border-top: 1px solid #ddd;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px; /* Ensures the footer is below the sections */
 }
 
 footer p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 12px;
     color: #555;
 }
 
 footer p.credit {
-    font-style: italic;
-    font-size: 13px;
+    font-size: 10px;
     color: #777;
+    font-style: italic;
 }
 
 /* Responsive Design */
