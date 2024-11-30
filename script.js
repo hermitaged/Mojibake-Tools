@@ -5,15 +5,17 @@ document.getElementById("convertButton").addEventListener("click", () => {
 });
 
 function toMojibake(inputText) {
-    // Encode the input text into UTF-8 bytes
-    const encoder = new TextEncoder();
-    const utf8Bytes = encoder.encode(inputText);
-
-    // Decode the bytes as Shift-JIS (simulated)
-    const decoder = new TextDecoder("shift_jis");
     try {
-        return decoder.decode(utf8Bytes);
-    } catch (e) {
-        return "Error: Cannot convert to Mojibake with the current encoding!";
+        // Encode the input text as UTF-8 bytes
+        const utf8Encoder = new TextEncoder();
+        const utf8Bytes = utf8Encoder.encode(inputText);
+
+        // Misinterpret UTF-8 bytes as Shift-JIS
+        const shiftJISDecoder = new TextDecoder("shift_jis");
+        return shiftJISDecoder.decode(utf8Bytes);
+    } catch (error) {
+        // Handle encoding errors
+        console.error("Error during Mojibake conversion:", error);
+        return "Cannot convert the text into Mojibake.";
     }
 }
