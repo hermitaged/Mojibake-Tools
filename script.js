@@ -4,6 +4,12 @@ document.getElementById("convertButton").addEventListener("click", () => {
     document.getElementById("outputText").value = mojibakeResult;
 });
 
+document.getElementById("decodeButton").addEventListener("click", () => {
+    const mojibakeText = document.getElementById("decodeInputText").value;
+    const decodedResult = decodeMojibake(mojibakeText);
+    document.getElementById("decodedOutputText").value = decodedResult;
+});
+
 function toMojibake(inputText) {
     // Step 1: Convert Latin text to Katakana, Hiragana, or Kanji for variety
     const kanaText = latinToKana(inputText);
@@ -54,4 +60,17 @@ function simulateMojibake(kanaText) {
     mojibakeText = mojibakeText.replace(/[\u200B\u200C\u200D\u200E\u200F\u202A-\u202E\u2060\uFEFF]/g, "");
 
     return mojibakeText;
+}
+
+// Decode function to reverse the mojibake effect
+function decodeMojibake(mojibakeText) {
+    // Step 1: Convert back from Mojibake (misinterpreted bytes) to UTF-8 encoding
+    const utf8Decoder = new TextDecoder();
+    const decodedText = utf8Decoder.decode(new TextEncoder().encode(mojibakeText));
+
+    // Step 2: Optionally, clean the decoded text of any invisible characters or non-printing characters
+    const cleanedDecodedText = decodedText.replace(/[\u200B\u200C\u200D\u200E\u200F\u202A-\u202E\u2060\uFEFF]/g, "");
+
+    // Return the cleaned decoded text
+    return cleanedDecodedText;
 }
