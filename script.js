@@ -1,13 +1,13 @@
-document.getElementById("convertButton").addEventListener("click", () => {
+document.getElementById("encodeButton").addEventListener("click", () => {
     const inputText = document.getElementById("inputText").value;
     const mojibakeResult = toMojibake(inputText);
     document.getElementById("outputText").value = mojibakeResult;
 });
 
 document.getElementById("decodeButton").addEventListener("click", () => {
-    const mojibakeText = document.getElementById("decodeInputText").value;
-    const decodedResult = decodeMojibake(mojibakeText);
-    document.getElementById("decodedOutputText").value = decodedResult;
+    const mojibakeInput = document.getElementById("mojibakeInput").value;
+    const decodedResult = decodeMojibake(mojibakeInput);
+    document.getElementById("decodedOutput").value = decodedResult;
 });
 
 function toMojibake(inputText) {
@@ -18,6 +18,22 @@ function toMojibake(inputText) {
     const mojibakeText = simulateMojibake(kanaText);
 
     return mojibakeText;
+}
+
+function decodeMojibake(mojibakeText) {
+    // Reverse the mojibake process (convert back from mojibake to Latin text)
+    const utf8Decoder = new TextDecoder(); // This will convert mojibake back to readable text
+    const mojibakeBytes = [];
+    
+    // Convert mojibake text into byte representation
+    for (let i = 0; i < mojibakeText.length; i++) {
+        mojibakeBytes.push(mojibakeText.charCodeAt(i));
+    }
+    
+    const decodedText = utf8Decoder.decode(new Uint8Array(mojibakeBytes));
+
+    // Convert back to Latin text by simulating the reversal of encoding mishap
+    return kanaToLatin(decodedText); // We'll use a similar mapping for decoding
 }
 
 function latinToKana(text) {
@@ -44,6 +60,26 @@ function latinToKana(text) {
     }).join("");
 }
 
+function kanaToLatin(text) {
+    const kanaToLatinMap = {
+        "ア": "A", "あ": "a", "亜": "A", "ビ": "B", "び": "b", "美": "B", 
+        "シ": "C", "し": "c", "志": "C", "デ": "D", "で": "d", "出": "D", 
+        "エ": "E", "え": "e", "恵": "E", "フ": "F", "ふ": "f", "不": "F", 
+        "ギ": "G", "ぎ": "g", "技": "G", "ヒ": "H", "ひ": "h", "日": "H", 
+        "イ": "I", "い": "i", "伊": "I", "ジ": "J", "じ": "j", "治": "J", 
+        "ケ": "K", "け": "k", "計": "K", "ル": "L", "る": "l", "留": "L", 
+        "ム": "M", "む": "m", "無": "M", "ン": "N", "ん": "n", "能": "N", 
+        "オ": "O", "お": "o", "音": "O", "プ": "P", "ぷ": "p", "歩": "P", 
+        "ク": "Q", "く": "q", "区": "Q", "ル": "R", "る": "r", "流": "R", 
+        "ス": "S", "す": "s", "数": "S", "ト": "T", "と": "t", "時": "T", 
+        "ウ": "U", "う": "u", "宇": "U", "ヴ": "V", "ゔ": "v", "部": "V", 
+        "ワ": "W", "わ": "w", "和": "W", "イ": "X", "い": "x", "意": "X", 
+        "ズ": "Z", "ず": "z", "図": "Z", " ": " " 
+    };
+
+    return text.split("").map(char => kanaToLatinMap[char] || char).join("");
+}
+
 function simulateMojibake(kanaText) {
     const utf8Encoder = new TextEncoder();
     const utf8Bytes = utf8Encoder.encode(kanaText);
@@ -52,25 +88,8 @@ function simulateMojibake(kanaText) {
 
     for (let i = 0; i < utf8Bytes.length; i++) {
         const byte = utf8Bytes[i];
-        // Interpret the UTF-8 byte as ISO-8859-1 or Windows-1252
         mojibakeText += String.fromCharCode(byte);
     }
 
-    // Step 3: Remove invisible characters like zero-width space (U+200B) and other non-printing characters
-    mojibakeText = mojibakeText.replace(/[\u200B\u200C\u200D\u200E\u200F\u202A-\u202E\u2060\uFEFF]/g, "");
-
     return mojibakeText;
-}
-
-// Decode function to reverse the mojibake effect
-function decodeMojibake(mojibakeText) {
-    // Step 1: Convert back from Mojibake (misinterpreted bytes) to UTF-8 encoding
-    const utf8Decoder = new TextDecoder();
-    const decodedText = utf8Decoder.decode(new TextEncoder().encode(mojibakeText));
-
-    // Step 2: Optionally, clean the decoded text of any invisible characters or non-printing characters
-    const cleanedDecodedText = decodedText.replace(/[\u200B\u200C\u200D\u200E\u200F\u202A-\u202E\u2060\uFEFF]/g, "");
-
-    // Return the cleaned decoded text
-    return cleanedDecodedText;
 }
