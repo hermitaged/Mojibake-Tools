@@ -5,7 +5,7 @@ document.getElementById("convertButton").addEventListener("click", () => {
 });
 
 function toMojibake(inputText) {
-    // Step 1: Convert Latin text to Katakana
+    // Step 1: Convert Latin text to Katakana with randomness
     const katakanaText = latinToKatakana(inputText);
 
     // Step 2: Simulate Mojibake (misinterpretation of UTF-8 as ISO-8859-1 or Windows-1252)
@@ -16,20 +16,31 @@ function toMojibake(inputText) {
 
 function latinToKatakana(text) {
     const latinToKana = {
-        A: "ア", B: "ビ", C: "シ", D: "デ", E: "エ",
-        F: "フ", G: "ギ", H: "ヒ", I: "イ", J: "ジ",
-        K: "ケ", L: "ル", M: "ム", N: "ン", O: "オ",
-        P: "プ", Q: "ク", R: "ル", S: "ス", T: "ト",
-        U: "ウ", V: "ヴ", W: "ワ", X: "クス", Y: "イ",
-        Z: "ズ", a: "ア", b: "ビ", c: "シ", d: "デ",
-        e: "エ", f: "フ", g: "ギ", h: "ヒ", i: "イ",
-        j: "ジ", k: "ケ", l: "ル", m: "ム", n: "ン",
-        o: "オ", p: "プ", q: "ク", r: "ル", s: "ス",
-        t: "ト", u: "ウ", v: "ヴ", w: "ワ", x: "クス",
-        y: "イ", z: "ズ", " ": "　", // Full-width space
+        A: ["ア", "ァ", "エ"], B: ["ビ", "バ", "ブ"], C: ["シ", "セ", "サ"],
+        D: ["デ", "ダ", "ド"], E: ["エ", "ェ", "イ"], F: ["フ", "フィ", "フォ"],
+        G: ["ギ", "ガ", "グ"], H: ["ヒ", "ハ", "ホ"], I: ["イ", "ィ", "エ"],
+        J: ["ジ", "ジャ", "ジュ"], K: ["ケ", "カ", "キ"], L: ["ル", "ラ", "リ"],
+        M: ["ム", "マ", "ミ"], N: ["ン", "ナ", "ニ"], O: ["オ", "ォ", "ア"],
+        P: ["プ", "ポ", "パ"], Q: ["ク", "キュ", "ケ"], R: ["ル", "ラ", "リ"],
+        S: ["ス", "セ", "サ"], T: ["ト", "タ", "ティ"], U: ["ウ", "ゥ", "オ"],
+        V: ["ヴ", "ビ", "ブ"], W: ["ワ", "ウィ", "ウェ"], X: ["クス", "キス", "ク"],
+        Y: ["イ", "ヤ", "ユ"], Z: ["ズ", "ザ", "ゼ"], " ": ["　"], // Full-width space
+        a: ["ア", "ァ", "エ"], b: ["ビ", "バ", "ブ"], c: ["シ", "セ", "サ"],
+        d: ["デ", "ダ", "ド"], e: ["エ", "ェ", "イ"], f: ["フ", "フィ", "フォ"],
+        g: ["ギ", "ガ", "グ"], h: ["ヒ", "ハ", "ホ"], i: ["イ", "ィ", "エ"],
+        j: ["ジ", "ジャ", "ジュ"], k: ["ケ", "カ", "キ"], l: ["ル", "ラ", "リ"],
+        m: ["ム", "マ", "ミ"], n: ["ン", "ナ", "ニ"], o: ["オ", "ォ", "ア"],
+        p: ["プ", "ポ", "パ"], q: ["ク", "キュ", "ケ"], r: ["ル", "ラ", "リ"],
+        s: ["ス", "セ", "サ"], t: ["ト", "タ", "ティ"], u: ["ウ", "ゥ", "オ"],
+        v: ["ヴ", "ビ", "ブ"], w: ["ワ", "ウィ", "ウェ"], x: ["クス", "キス", "ク"],
+        y: ["イ", "ヤ", "ユ"], z: ["ズ", "ザ", "ゼ"]
     };
 
-    return text.split("").map(char => latinToKana[char] || char).join("");
+    // Replace each character with a random choice from the pool
+    return text.split("").map(char => {
+        const options = latinToKana[char] || [char]; // Default to the character itself if not in the map
+        return options[Math.floor(Math.random() * options.length)];
+    }).join("");
 }
 
 function simulateMojibake(katakanaText) {
