@@ -5,46 +5,46 @@ document.getElementById("convertButton").addEventListener("click", () => {
 });
 
 function toMojibake(inputText) {
-    try {
-        // Step 1: Translate Latin characters to Japanese (Hiragana/Katakana)
-        const japaneseTranslation = latinToJapanese(inputText);
+    // Step 1: Convert Latin text to Katakana
+    const katakanaText = latinToKatakana(inputText);
 
-        // Step 2: Encode the Japanese translation into UTF-8 bytes
-        const utf8Encoder = new TextEncoder();
-        const utf8Bytes = utf8Encoder.encode(japaneseTranslation);
+    // Step 2: Simulate Mojibake by misinterpreting Katakana as a different encoding
+    const mojibakeText = simulateMojibake(katakanaText);
 
-        // Step 3: Misinterpret UTF-8 bytes as ISO-8859-1 (simulate Mojibake)
-        let mojibakeText = "";
-        for (let i = 0; i < utf8Bytes.length; i++) {
-            mojibakeText += String.fromCharCode(utf8Bytes[i]);
-        }
-
-        return mojibakeText;
-    } catch (error) {
-        console.error("Error during Mojibake conversion:", error);
-        return "Cannot convert the text into Mojibake.";
-    }
+    return mojibakeText;
 }
 
-// Expanded Latin-to-Japanese translation mapping (Katakana and Hiragana)
-function latinToJapanese(text) {
-    const mapping = {
+function latinToKatakana(text) {
+    // Define a simple mapping from Latin letters to Katakana
+    const latinToKana = {
         A: "ア", B: "ビ", C: "シ", D: "デ", E: "エ",
         F: "フ", G: "ギ", H: "ヒ", I: "イ", J: "ジ",
         K: "ケ", L: "ル", M: "ム", N: "ン", O: "オ",
         P: "プ", Q: "ク", R: "ル", S: "ス", T: "ト",
         U: "ウ", V: "ヴ", W: "ワ", X: "クス", Y: "イ",
-        Z: "ズ", a: "あ", b: "び", c: "し", d: "で",
-        e: "え", f: "ふ", g: "ぎ", h: "ひ", i: "い",
-        j: "じ", k: "け", l: "る", m: "む", n: "ん",
-        o: "お", p: "ぷ", q: "く", r: "る", s: "す",
-        t: "と", u: "う", v: "ゔ", w: "わ", x: "くす",
-        y: "い", z: "ず", " ": "　", // Using full-width space (Japanese punctuation)
-        // Additional letters can be added as needed
-        '0': "ゼロ", '1': "いち", '2': "に", '3': "さん", '4': "し", '5': "ご",
-        '6': "ろく", '7': "なな", '8': "はち", '9': "きゅう"
+        Z: "ズ", a: "ア", b: "ビ", c: "シ", d: "デ",
+        e: "エ", f: "フ", g: "ギ", h: "ヒ", i: "イ",
+        j: "ジ", k: "ケ", l: "ル", m: "ム", n: "ン",
+        o: "オ", p: "プ", q: "ク", r: "ル", s: "ス",
+        t: "ト", u: "ウ", v: "ヴ", w: "ワ", x: "クス",
+        y: "イ", z: "ズ", " ": "　", // Full-width space
     };
 
-    // Translate each character to its Japanese equivalent
-    return text.split("").map(char => mapping[char] || char).join("");
+    // Convert Latin to Katakana by replacing each character with its equivalent
+    return text.split("").map(char => latinToKana[char] || char).join("");
+}
+
+function simulateMojibake(katakanaText) {
+    // Step 1: Encode Katakana text as UTF-8
+    const utf8Encoder = new TextEncoder();
+    const utf8Bytes = utf8Encoder.encode(katakanaText);
+
+    // Step 2: Simulate Mojibake by misinterpreting UTF-8 bytes as ISO-8859-1
+    let mojibakeText = "";
+    for (let i = 0; i < utf8Bytes.length; i++) {
+        // Convert byte to a character in the ISO-8859-1 range
+        mojibakeText += String.fromCharCode(utf8Bytes[i]);
+    }
+
+    return mojibakeText;
 }
