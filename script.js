@@ -6,14 +6,14 @@ document.getElementById("convertButton").addEventListener("click", () => {
 
 function toMojibake(inputText) {
     try {
-        // Step 1: Translate Latin characters to Japanese using extended mapping
+        // Step 1: Translate Latin characters to Japanese (Hiragana/Katakana)
         const japaneseTranslation = latinToJapanese(inputText);
 
-        // Step 2: Encode Japanese characters into UTF-8 bytes
+        // Step 2: Encode the Japanese translation into UTF-8 bytes
         const utf8Encoder = new TextEncoder();
         const utf8Bytes = utf8Encoder.encode(japaneseTranslation);
 
-        // Step 3: Misinterpret UTF-8 bytes as if they were ISO-8859-1
+        // Step 3: Misinterpret UTF-8 bytes as ISO-8859-1 (simulate Mojibake)
         let mojibakeText = "";
         for (let i = 0; i < utf8Bytes.length; i++) {
             mojibakeText += String.fromCharCode(utf8Bytes[i]);
@@ -26,7 +26,7 @@ function toMojibake(inputText) {
     }
 }
 
-// Expanded Latin-to-Japanese translation mapping (Hiragana and Katakana)
+// Expanded Latin-to-Japanese translation mapping (Katakana and Hiragana)
 function latinToJapanese(text) {
     const mapping = {
         A: "ア", B: "ビ", C: "シ", D: "デ", E: "エ",
@@ -39,12 +39,12 @@ function latinToJapanese(text) {
         j: "じ", k: "け", l: "る", m: "む", n: "ん",
         o: "お", p: "ぷ", q: "く", r: "る", s: "す",
         t: "と", u: "う", v: "ゔ", w: "わ", x: "くす",
-        y: "い", z: "ず", " ": "　",
+        y: "い", z: "ず", " ": "　", // Using full-width space (Japanese punctuation)
         // Additional letters can be added as needed
         '0': "ゼロ", '1': "いち", '2': "に", '3': "さん", '4': "し", '5': "ご",
         '6': "ろく", '7': "なな", '8': "はち", '9': "きゅう"
     };
 
-    // Replace each character with its Japanese equivalent
+    // Translate each character to its Japanese equivalent
     return text.split("").map(char => mapping[char] || char).join("");
 }
