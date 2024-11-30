@@ -6,18 +6,17 @@ document.getElementById("convertButton").addEventListener("click", () => {
 
 function toMojibake(inputText) {
     try {
-        // Encode the input text as UTF-8 bytes
+        // Step 1: Encode the input text to UTF-8 bytes
         const utf8Encoder = new TextEncoder();
         const utf8Bytes = utf8Encoder.encode(inputText);
 
-        // Simulate decoding bytes as ISO 8859-1 (Latin-1)
-        const mojibakeResult = utf8Bytes
-            .map(byte => String.fromCharCode(byte)) // Convert bytes to characters directly
-            .join(''); // Join characters into a string
+        // Step 2: Force interpret UTF-8 bytes as Shift-JIS or a similar encoding
+        // We'll use ISO-8859-1 here for demonstration purposes
+        const shiftJISDecoder = new TextDecoder("iso-8859-1");
+        const mojibakeText = shiftJISDecoder.decode(utf8Bytes);
 
-        return mojibakeResult;
+        return mojibakeText;
     } catch (error) {
-        // Handle encoding errors
         console.error("Error during Mojibake conversion:", error);
         return "Cannot convert the text into Mojibake.";
     }
