@@ -7,10 +7,10 @@ body {
     padding: 0;
     background-color: #f4f4f9;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    flex-direction: column; /* This ensures everything aligns vertically */
 }
 
 .container {
@@ -18,7 +18,7 @@ body {
     justify-content: space-between;
     width: 90%;
     max-width: 1200px;
-    margin-bottom: 20px; /* Add spacing below the main content */
+    margin-bottom: 20px; /* Added margin-bottom so the footer doesn't stick to the sections */
 }
 
 .section {
@@ -69,13 +69,13 @@ textarea[readonly] {
 /* Footer Styling */
 footer {
     text-align: center;
-    width: 90%;
-    max-width: 1200px;
+    width: 100%;
     padding: 10px;
     border-top: 1px solid #ddd;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Ensures the footer is below the sections */
 }
 
 footer p {
@@ -93,14 +93,10 @@ footer p.credit {
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .container {
-        flex-direction: column;
+        flex-direction: column; /* Stacks the sections vertically on small screens */
     }
 
     .section {
         margin-bottom: 20px;
-    }
-
-    footer {
-        margin-top: 20px;
     }
 }
