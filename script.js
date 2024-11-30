@@ -6,14 +6,15 @@ document.getElementById("convertButton").addEventListener("click", () => {
 
 function toMojibake(inputText) {
     try {
-        // Step 1: Encode the input text to UTF-8 bytes
+        // Step 1: Encode input text to UTF-8 bytes
         const utf8Encoder = new TextEncoder();
         const utf8Bytes = utf8Encoder.encode(inputText);
 
-        // Step 2: Force interpret UTF-8 bytes as Shift-JIS or a similar encoding
-        // We'll use ISO-8859-1 here for demonstration purposes
-        const shiftJISDecoder = new TextDecoder("iso-8859-1");
-        const mojibakeText = shiftJISDecoder.decode(utf8Bytes);
+        // Step 2: Decode those bytes incorrectly as ISO-8859-1 to produce gibberish
+        let mojibakeText = "";
+        for (let i = 0; i < utf8Bytes.length; i++) {
+            mojibakeText += String.fromCharCode(utf8Bytes[i]);
+        }
 
         return mojibakeText;
     } catch (error) {
