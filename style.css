@@ -1,3 +1,10 @@
+/* Add a comprehensive font that supports a wide range of Unicode characters */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+body {
+    font-family: "Noto Sans", sans-serif;
+}
+
 /* Basic Reset */
 * {
     margin: 0;
