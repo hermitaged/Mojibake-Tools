@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mojibake Encoder and Decoder</title>
+    <title>Syntexis Encoder and Decoder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <div class="section">
-            <h2>Encode to Mojibake</h2>
-            <textarea id="inputText" placeholder="Enter Latin text to encode"></textarea>
-            <button id="encodeButton">Encode</button>
-            <textarea id="outputText" placeholder="Encoded Mojibake output" readonly></textarea>
+        <!-- Definition Section -->
+        <div class="definition">
+            <h1>What is Syntexis?</h1>
+            <p>Syntexis is a linguistic distortion concept inspired by Mojibake. It represents the encoding and decoding of text in an alternate universe, where misinterpreted or garbled text becomes a mysterious language of its own.</p>
         </div>
 
+        <!-- Encoding Section -->
         <div class="section">
-            <h2>Decode Mojibake</h2>
-            <textarea id="mojibakeInput" placeholder="Enter Mojibake text to decode"></textarea>
-            <button id="decodeButton">Decode</button>
-            <textarea id="decodedOutput" placeholder="Decoded Latin text" readonly></textarea>
+            <h2>Encode to Syntexis</h2>
+            <textarea id="inputText" placeholder="Enter your text to encode"></textarea>
+            <button id="encodeButton">Encode</button>
+            <textarea id="outputText" placeholder="Encoded Syntexis output" readonly></textarea>
         </div>
+
+        <!-- Decoding Section -->
+        <div class="section">
+            <h2>Decode the Syntexis</h2>
+            <textarea id="mojibakeInput" placeholder="Enter Syntexis to decode"></textarea>
+            <button id="decodeButton">Decode</button>
+            <textarea id="decodedOutput" placeholder="Decoded Syntexis output" readonly></textarea>
+        </div>
+
+        <!-- Credit Section -->
+        <footer class="credits">
+            <p>This project draws inspiration from the concept of Mojibake.</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
