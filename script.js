@@ -6,7 +6,7 @@ document.getElementById("convertButton").addEventListener("click", () => {
 
 function toMojibake(inputText) {
     try {
-        // Step 1: Translate Latin characters to Japanese using basic mapping
+        // Step 1: Translate Latin characters to Japanese using extended mapping
         const japaneseTranslation = latinToJapanese(inputText);
 
         // Step 2: Encode Japanese characters into UTF-8 bytes
@@ -26,7 +26,7 @@ function toMojibake(inputText) {
     }
 }
 
-// Simple Latin-to-Japanese translation mapping for example (expand as needed)
+// Expanded Latin-to-Japanese translation mapping (Hiragana and Katakana)
 function latinToJapanese(text) {
     const mapping = {
         A: "ア", B: "ビ", C: "シ", D: "デ", E: "エ",
@@ -39,7 +39,10 @@ function latinToJapanese(text) {
         j: "じ", k: "け", l: "る", m: "む", n: "ん",
         o: "お", p: "ぷ", q: "く", r: "る", s: "す",
         t: "と", u: "う", v: "ゔ", w: "わ", x: "くす",
-        y: "い", z: "ず", " ": "　"
+        y: "い", z: "ず", " ": "　",
+        // Additional letters can be added as needed
+        '0': "ゼロ", '1': "いち", '2': "に", '3': "さん", '4': "し", '5': "ご",
+        '6': "ろく", '7': "なな", '8': "はち", '9': "きゅう"
     };
 
     // Replace each character with its Japanese equivalent
