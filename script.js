@@ -51,15 +51,17 @@ function simulateMojibake(katakanaText) {
 
     for (let i = 0; i < utf8Bytes.length; i++) {
         const byte = utf8Bytes[i];
-        // Ensure bytes are misinterpreted correctly as ISO-8859-1 or Windows-1252
+        // Convert to visible Mojibake-like characters within ISO-8859-1 or Windows-1252 range
         if (byte >= 0x20 && byte <= 0x7E) {
             // Printable ASCII range remains as is
             mojibakeText += String.fromCharCode(byte);
         } else {
-            // Non-ASCII range: Convert to visible Mojibake-like characters
-            mojibakeText += String.fromCharCode(byte + 0x2500); // Offset for visible chars
+            // Non-ASCII range: Misinterpret byte value
+            mojibakeText += String.fromCharCode(0xC0 | (byte >> 6)); // Higher bits
+            mojibakeText += String.fromCharCode(0x80 | (byte & 0x3F)); // Lower bits
         }
     }
 
     return mojibakeText;
 }
+
