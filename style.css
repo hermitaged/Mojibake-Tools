@@ -76,12 +76,12 @@ footer {
 
 footer p {
     margin: 5px 0;
-    font-size: 12px;
+    font-size: 9px;
     color: #555;
 }
 
 footer p.credit {
-    font-size: 10px;
+    font-size: 9px;
     color: #777;
     font-style: italic;
 }
