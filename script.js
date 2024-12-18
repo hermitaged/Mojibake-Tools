@@ -1,11 +1,19 @@
 document.getElementById("encodeButton").addEventListener("click", () => {
-    const inputText = document.getElementById("inputText").value;
+    const inputText = document.getElementById("inputText").value.trim();
+    if (!inputText) {
+        alert("Please enter text to encode.");
+        return;
+    }
     const mojibakeResult = toMojibake(inputText);
     document.getElementById("outputText").value = mojibakeResult;
 });
 
 document.getElementById("decodeButton").addEventListener("click", () => {
-    const mojibakeInput = document.getElementById("mojibakeInput").value;
+    const mojibakeInput = document.getElementById("mojibakeInput").value.trim();
+    if (!mojibakeInput) {
+        alert("Please enter text to decode.");
+        return;
+    }
     const decodedResult = decodeMojibake(mojibakeInput);
     document.getElementById("decodedOutput").value = decodedResult;
 });
